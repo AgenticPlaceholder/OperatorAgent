@@ -15,7 +15,7 @@ const CONTRACT_ADDRESS: string = process.env.CONTRACT_ADDRESS || "";
 const NEW_AUCTION_START_PRICE = ethers.utils.parseUnits("100", 18);
 const NEW_AUCTION_END_PRICE = ethers.utils.parseUnits("10", 18);
 // Polling interval in milliseconds
-const POLL_INTERVAL = 15 * 1000; // 15 seconds
+const POLL_INTERVAL = 10 * 1000; // 15 seconds
 
 // ------------------------------
 // ABI (include events and functions we use)
