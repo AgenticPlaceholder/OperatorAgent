@@ -86,6 +86,7 @@ function setupEventListeners(): void {
       tokenId: ethers.BigNumber,
       event: any
     ) => {
+      console.log("------------🔚-----------------");
       console.log("Event: AuctionEnded");
       console.log(`  Winner:       ${winner}`);
       console.log(
@@ -93,6 +94,7 @@ function setupEventListeners(): void {
       );
       console.log(`  Token ID:     ${tokenId.toString()}`);
       console.log(`  Tx Hash:      ${event.transactionHash}`);
+      console.log("-----------------------------");
     }
   );
 
@@ -104,7 +106,7 @@ function setupEventListeners(): void {
       tokenId: ethers.BigNumber,
       event: any
     ) => {
-      console.log("-----------------------------");
+      console.log("-----------📑------------------");
       console.log("Event: BidPlaced");
       console.log(`  Bidder:     ${bidder}`);
       console.log(
@@ -119,10 +121,12 @@ function setupEventListeners(): void {
   contract.on(
     "ProofSubmitted",
     (tokenId: ethers.BigNumber, proofHash: string, event: any) => {
+      console.log("-----------------------------");
       console.log("Event: ProofSubmitted");
       console.log(`  Token ID:  ${tokenId.toString()}`);
       console.log(`  Proof:     ${proofHash}`);
       console.log(`  Tx Hash:   ${event.transactionHash}`);
+      console.log("-----------------------------");
     }
   );
 
@@ -149,7 +153,7 @@ function setupEventListeners(): void {
       bidAmount: ethers.BigNumber,
       event: any
     ) => {
-      console.log("-----------------------------");
+      console.log("-----------🏆🏆🏆------------------");
       console.log("Event: WinningAdSelected");
       console.log(`  Token ID:   ${tokenId.toString()}`);
       console.log(`  Title:      ${title}`);
@@ -158,7 +162,9 @@ function setupEventListeners(): void {
       console.log(`  Publisher:  ${publisher}`);
       console.log(`  Bid Amount: ${ethers.utils.formatUnits(bidAmount, 18)}`);
       console.log(`  Tx Hash:    ${event.transactionHash}`);
-      console.log("-----------------------------\n\n");
+      console.log("-----------------------------------\n\n");
+      // sleep for 10 seconds before starting a new auction
+      setTimeout(() => {}, 30 * 1000);
     }
   );
 }
