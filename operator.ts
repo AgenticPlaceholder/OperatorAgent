@@ -14,6 +14,7 @@ const CONTRACT_ADDRESS: string = process.env.CONTRACT_ADDRESS || "";
 // Auction parameters for new auctions (adjust as needed)
 const NEW_AUCTION_START_PRICE = ethers.utils.parseUnits("100", 18);
 const NEW_AUCTION_END_PRICE = ethers.utils.parseUnits("10", 18);
+const NEW_AUCTION_DURATION = Number(60);
 // Polling interval in milliseconds
 const POLL_INTERVAL = 10 * 1000; // 15 seconds
 
@@ -30,7 +31,7 @@ const CONTRACT_ABI = [
   "event WinningAdSelected(uint256 indexed tokenId, string title, string content, string imageURL, address indexed publisher, uint256 bidAmount)",
 
   // Auction functions
-  "function startAuction(uint256 _startPrice, uint256 _endPrice) external",
+  "function startAuction(uint256 _startPrice, uint256 _endPrice, uint256 _duration) external",
   "function endAuctionNoBids() external",
   "function submitProof(uint256 _tokenId, bytes32 _proofHash) external",
   "function claimPayment(uint256 _tokenId) external",
@@ -217,7 +218,8 @@ async function checkAuctionStatus(): Promise<void> {
       console.log("Starting new auction...");
       const tx2 = await contract.startAuction(
         NEW_AUCTION_START_PRICE,
-        NEW_AUCTION_END_PRICE
+        NEW_AUCTION_END_PRICE,
+        NEW_AUCTION_DURATION
       );
       console.log(`startAuction() called. Tx Hash: ${tx2.hash}`);
       await tx2.wait();
@@ -249,7 +251,8 @@ async function checkAuctionStatus(): Promise<void> {
         console.log("Auction is fully settled. Starting new auction...");
         const tx = await contract.startAuction(
           NEW_AUCTION_START_PRICE,
-          NEW_AUCTION_END_PRICE
+          NEW_AUCTION_END_PRICE,
+          NEW_AUCTION_DURATION
         );
         console.log(`startAuction() called. Tx Hash: ${tx.hash}`);
         await tx.wait();
